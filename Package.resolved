@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "swift-grammar",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kelvin13/swift-grammar",
+      "state" : {
+        "revision" : "26fb76035920c8071f3d0df54b23d71e429422b3",
+        "version" : "0.1.2"
+      }
+    },
+    {
+      "identity" : "swift-json",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kelvin13/swift-json",
+      "state" : {
+        "revision" : "de4a3f77367fa08845228e88ab0c4b4617828bd5",
+        "version" : "0.2.2"
+      }
+    }
+  ],
+  "version" : 2
+}
