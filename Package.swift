@@ -7,7 +7,8 @@ let package = Package(
     name: "json-decode",
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/kelvin13/swift-json", from: "0.2.2"),
+//        .package(url: "https://github.com/kelvin13/swift-json", from: "0.3.0"),
+        .package(url: "https://github.com/kelvin13/swift-json", branch: "master"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.

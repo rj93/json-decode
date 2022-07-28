@@ -16,6 +16,21 @@ struct Log: Identifiable, Decodable {
     let message: String
     let id = UUID()
     
+    init(from json:JSON) throws
+    {
+        (self.timestamp, self.message, self.logger, self.thread, self.level) =
+            try json.lint
+        {
+            (
+                timestamp: try $0.remove("@timestamp", as: String.self),
+                message: try $0.remove("message", as: String.self),
+                logger: try $0.remove("logger_name", as: String.self),
+                thread: try $0.remove("thread_name", as: String.self),
+                level: try $0.remove("level", as: String.self)
+            )
+        }
+    }
+    
     private enum CodingKeys : String, CodingKey {
         case timestamp = "@timestamp"
         case level
@@ -44,12 +59,12 @@ private func swiftJson(file: URL) -> [Log] {
     let content: String = try! String(contentsOf: file, encoding: .utf8)
     
     let startTime = CFAbsoluteTimeGetCurrent()
-    let logs: [Log] = content
+    let logs: [Log] = try! content
         .split(whereSeparator: \.isNewline)
         .filter{ !$0.isEmpty }
         .map {
-            let decoder: JSON = try! Grammar.parse($0.utf8, as: JSON.Rule<String.Index>.Root.self)
-            return try! .init(from: decoder)
+            let decoder = try Grammar.parse($0.utf8, as: JSON.Rule<String.Index>.Root.self)
+            return try! Log(from: decoder)
         }
     let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
         print("swiftJson time elapsed: \(timeElapsed) s.")
